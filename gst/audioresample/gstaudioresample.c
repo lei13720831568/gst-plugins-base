@@ -62,7 +62,7 @@
 #ifndef DISABLE_ORC
 #include <orc/orc.h>
 //#include <orc-test/orctest.h>
-#include <orc-test/orcprofile.h>
+//#include <orc-test/orcprofile.h>
 #endif
 
 GST_DEBUG_CATEGORY (audio_resample_debug);
@@ -1481,68 +1481,69 @@ _benchmark_int_int (SpeexResamplerState * st)
 static gboolean
 _benchmark_integer_resampling (void)
 {
-  OrcProfile a, b;
-  gdouble av, bv;
-  SpeexResamplerState *sta, *stb;
-  int i;
-
-  orc_profile_init (&a);
-  orc_profile_init (&b);
-
-  sta = resample_float_resampler_init (1, 48000, 24000, 4,
-      SPEEX_RESAMPLER_SINC_FILTER_INTERPOLATED,
-      SPEEX_RESAMPLER_SINC_FILTER_AUTO_THRESHOLD_DEFAULT, NULL);
-  if (sta == NULL) {
-    GST_ERROR ("Failed to create float resampler state");
-    return FALSE;
-  }
-
-  stb = resample_int_resampler_init (1, 48000, 24000, 4,
-      SPEEX_RESAMPLER_SINC_FILTER_INTERPOLATED,
-      SPEEX_RESAMPLER_SINC_FILTER_AUTO_THRESHOLD_DEFAULT, NULL);
-  if (stb == NULL) {
-    resample_float_resampler_destroy (sta);
-    GST_ERROR ("Failed to create int resampler state");
-    return FALSE;
-  }
-
-  /* Benchmark */
-  for (i = 0; i < 10; i++) {
-    orc_profile_start (&a);
-    if (!_benchmark_int_float (sta))
-      goto error;
-    orc_profile_stop (&a);
-  }
-
-  /* Benchmark */
-  for (i = 0; i < 10; i++) {
-    orc_profile_start (&b);
-    if (!_benchmark_int_int (stb))
-      goto error;
-    orc_profile_stop (&b);
-  }
-
-  /* Handle results */
-  orc_profile_get_ave_std (&a, &av, NULL);
-  orc_profile_get_ave_std (&b, &bv, NULL);
-
-  /* Remember benchmark result in global variable */
-  gst_audio_resample_use_int = (av > bv);
-  resample_float_resampler_destroy (sta);
-  resample_int_resampler_destroy (stb);
-
-  if (av > bv)
-    GST_INFO ("Using integer resampler if appropriate: %lf < %lf", bv, av);
-  else
-    GST_INFO ("Using float resampler for everything: %lf <= %lf", av, bv);
-
   return TRUE;
+//   OrcProfile a, b;
+//   gdouble av, bv;
+//   SpeexResamplerState *sta, *stb;
+//   int i;
 
-error:
-  resample_float_resampler_destroy (sta);
-  resample_int_resampler_destroy (stb);
+//   orc_profile_init (&a);
+//   orc_profile_init (&b);
 
-  return FALSE;
+//   sta = resample_float_resampler_init (1, 48000, 24000, 4,
+//       SPEEX_RESAMPLER_SINC_FILTER_INTERPOLATED,
+//       SPEEX_RESAMPLER_SINC_FILTER_AUTO_THRESHOLD_DEFAULT, NULL);
+//   if (sta == NULL) {
+//     GST_ERROR ("Failed to create float resampler state");
+//     return FALSE;
+//   }
+
+//   stb = resample_int_resampler_init (1, 48000, 24000, 4,
+//       SPEEX_RESAMPLER_SINC_FILTER_INTERPOLATED,
+//       SPEEX_RESAMPLER_SINC_FILTER_AUTO_THRESHOLD_DEFAULT, NULL);
+//   if (stb == NULL) {
+//     resample_float_resampler_destroy (sta);
+//     GST_ERROR ("Failed to create int resampler state");
+//     return FALSE;
+//   }
+
+//   /* Benchmark */
+//   for (i = 0; i < 10; i++) {
+//     orc_profile_start (&a);
+//     if (!_benchmark_int_float (sta))
+//       goto error;
+//     orc_profile_stop (&a);
+//   }
+
+//   /* Benchmark */
+//   for (i = 0; i < 10; i++) {
+//     orc_profile_start (&b);
+//     if (!_benchmark_int_int (stb))
+//       goto error;
+//     orc_profile_stop (&b);
+//   }
+
+//   /* Handle results */
+//   orc_profile_get_ave_std (&a, &av, NULL);
+//   orc_profile_get_ave_std (&b, &bv, NULL);
+
+//   /* Remember benchmark result in global variable */
+//   gst_audio_resample_use_int = (av > bv);
+//   resample_float_resampler_destroy (sta);
+//   resample_int_resampler_destroy (stb);
+
+//   if (av > bv)
+//     GST_INFO ("Using integer resampler if appropriate: %lf < %lf", bv, av);
+//   else
+//     GST_INFO ("Using float resampler for everything: %lf <= %lf", av, bv);
+
+//   return TRUE;
+
+// error:
+//   resample_float_resampler_destroy (sta);
+//   resample_int_resampler_destroy (stb);
+
+//   return FALSE;
 }
 #endif /* defined(AUDIORESAMPLE_FORMAT_AUTO) && !defined(DISABLE_ORC) */
 
