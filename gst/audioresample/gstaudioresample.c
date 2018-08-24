@@ -62,7 +62,7 @@
 #ifndef DISABLE_ORC
 #include <orc/orc.h>
 //#include <orc-test/orctest.h>
-//#include <orc-test/orcprofile.h>
+#include <orc-test/orcprofile.h>
 #endif
 
 GST_DEBUG_CATEGORY (audio_resample_debug);
