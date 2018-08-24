@@ -1,11 +1,11 @@
 plugin_LTLIBRARIES = libgstaudioresample.la
 
 # FIXME: we still link against orc if it's there, even if --disable-orc was used
-if HAVE_ORC
-ORC_TEST_LIBS = -lorc-test-0.4
-else
-ORC_TEST_LIBS = 
-endif
+#if HAVE_ORC
+#ORC_TEST_LIBS = -lorc-test-0.4
+#else
+#ORC_TEST_LIBS = 
+#endif
 
 libgstaudioresample_la_SOURCES = \
 	gstaudioresample.c \
